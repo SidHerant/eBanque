@@ -8,7 +8,6 @@ using System.Text;
 
 namespace eBanque
 {
-    // REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom d'interface "IService1" à la fois dans le code et le fichier de configuration.
     [ServiceContract]
     public interface IeBanqueServiceREST
     {
@@ -69,27 +68,84 @@ namespace eBanque
         [WebInvoke(Method = "GET", UriTemplate = "/GetData",
             ResponseFormat = WebMessageFormat.Json)]
         List<Client> GetData();
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "/GetData/{id}",
+            ResponseFormat = WebMessageFormat.Json)]
+        ClientDTO GetClient(string id);
     }
 
 
     [DataContract]
-    public class CompositeType
+    public class ClientDTO
     {
-        bool boolValue = true;
-        string stringValue = "Hello ";
+        [DataMember]
+        public int Id { get; set; }
 
         [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
+        public string Nom { get; set; }
 
         [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
+        public string Prenom { get; set; }
+
+        [DataMember]
+        public string Email { get; set; }
+
+        [DataMember]
+        public List<CompteDTO> Comptes { get; set; }
+
+        [DataMember]
+        public List<CompteLieDTO> Beneficiaires { get; set; }
+    }
+
+    [DataContract]
+    public class CompteDTO
+    {
+        [DataMember]
+        public int Id { get; set; }
+
+        [DataMember]
+        public int Solde { get; set; }
+
+        [DataMember]
+        public string Nom { get; set; }
+
+        [DataMember]
+        public List<OperationDTO> Historique { get; set; }
+    }
+
+    [DataContract]
+    public class OperationDTO
+    {
+        [DataMember]
+        public int Id { get; set; }
+
+        [DataMember]
+        public DateTime Date { get; set; }
+
+        [DataMember]
+        public int Montant { get; set; }
+
+        [DataMember]
+        public TypeOperation Type { get; set; }
+
+        [DataMember]
+        public string Label { get; set; }
+
+        [DataMember]
+        public CompteLieDTO CompteLie { get; set; }
+    }
+
+    [DataContract]
+    public class CompteLieDTO
+    {
+        [DataMember]
+        public string NomProprietaire { get; set; }
+
+        [DataMember]
+        public string PrenomProprietaire { get; set; }
+
+        [DataMember]
+        public string NomCompte { get; set; }
     }
 }

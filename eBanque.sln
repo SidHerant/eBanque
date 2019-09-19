@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eBanque", "eBanque.csproj", "{4978EB2D-B04A-4A2A-977F-1FEDC4929AAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient_eBanque", "..\WebClient_eBanque\WebClient_eBanque.csproj", "{52FE664D-17AA-4D11-B485-DD90E8F811A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient_eBanque", "WebClient_eBanque\WebClient_eBanque.csproj", "{52FE664D-17AA-4D11-B485-DD90E8F811A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
