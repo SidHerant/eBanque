@@ -48,7 +48,8 @@
                 .HasMany<Operation>(c => c.Historique)
                 .WithOptional(c => c.CompteLie)
                 .Map(p => p.MapKey("CompteLieId"))
-                .WillCascadeOnDelete(false); 
+                .WillCascadeOnDelete(false);
+
 
             base.OnModelCreating(modelBuilder);
         }
@@ -282,6 +283,7 @@
 
         [Required]
         [MaxLength(50)]
+        [Index(IsUnique = true)]
         public string Email { get; set; }
 
         [Required]

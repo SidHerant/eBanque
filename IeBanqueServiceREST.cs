@@ -11,68 +11,68 @@ namespace eBanque
     [ServiceContract]
     public interface IeBanqueServiceREST
     {
+        
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "/{compteId}/Solde",
+            ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        CompteDTO GetSolde(string mail, string hashPwd, string compteId);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "/{compteId}/Retrait",
+            ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        void Retrait(string mail, string hashPwd, string compteId, int montant);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "/{compteId}/Depot",
+            ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        void Depot(string mail, string hashPwd, string compteId, int montant);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "/OuvrirCompte",
+            ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        void OuvrirCompte(string mail, string hashPwd, string name);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "/{compteId}/CloturerCompte",
+            ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        void CloturerCompte(string mail, string hashPwd, string compteId);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "/addBeneficiaire",
+            ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        void addBeneficiaire(string mail, string hashPwd, int compteId);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "/{compteFromRaw}/Virement",
+            ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        void Virement(string mail, string hashPwd, string compteFromRaw, int compteTo, int montant);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "/{compteId}/Historique",
+            ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        List<OperationDTO> Historique(string mail, string hashPwd, string compteId);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "/SignIn",
+            ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        void SignIn(string mail, string hashPwd, string nom, string prenom);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "/LogIn",
+            ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        void LogIn(string mail, string hashPwd);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "/",
+            ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        ClientDTO GetClient(string mail, string hashPwd);
+
+        /// /////////////////////
         /*
         [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/Solde",
-            ResponseFormat = WebMessageFormat.Json)]
-        string GetSolde(string mail, string hashPwd, int compteId);
-
-
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/Retrait",
-            ResponseFormat = WebMessageFormat.Json)]
-        string Retrait(string mail, string hashPwd, int compteId, float montant);
-
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/Depot",
-            ResponseFormat = WebMessageFormat.Json)]
-        string Depot(string mail, string hashPwd, int compteId, float montant);
-
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/OuvrirCompte",
-            ResponseFormat = WebMessageFormat.Json)]
-        string OuvrirCompte(string mail, string hashPwd);
-
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/CloturerCompte",
-            ResponseFormat = WebMessageFormat.Json)]
-        string CloturerCompteCompte(string mail, string hashPwd, int compteId);
-
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/addBeneficiaire",
-            ResponseFormat = WebMessageFormat.Json)]
-        string addBeneficiaire(string mail, string hashPwd, int compteId);
-
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/Virement",
-            ResponseFormat = WebMessageFormat.Json)]
-        string Virement(string mail, string hashPwd, int compteFrom, int compteTo);
-
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/Historique",
-            ResponseFormat = WebMessageFormat.Json)]
-        string Historique(string mail, string hashPwd, int compteId);
-
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/SignIn",
-            ResponseFormat = WebMessageFormat.Json)]
-        string SignIn(string mail, string hashPwd);
-
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/LogIn",
-            ResponseFormat = WebMessageFormat.Json)]
-        string LogIn(string mail, string hashPwd);
-        */
-
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/GetData",
-            ResponseFormat = WebMessageFormat.Json)]
-        List<Client> GetData();
-
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/GetData/{id}",
-            ResponseFormat = WebMessageFormat.Json)]
-        ClientDTO GetClient(string id);
+        [WebInvoke(Method = "POST", UriTemplate = "/GetData",
+            ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        List<Client> GetData();*/
     }
 
 
@@ -96,6 +96,17 @@ namespace eBanque
 
         [DataMember]
         public List<CompteLieDTO> Beneficiaires { get; set; }
+
+        public ClientDTO(Client client)
+        {
+            Id = client.Id;
+            Nom = client.Nom;
+            Prenom = client.Prenom;
+            Email = client.Email;
+            Comptes = client.Comptes.Select(c => new CompteDTO(c)).ToList();
+            Beneficiaires = client.Beneficiaires.Select(b => new CompteLieDTO(b)).ToList();
+        }
+
     }
 
     [DataContract]
@@ -112,6 +123,14 @@ namespace eBanque
 
         [DataMember]
         public List<OperationDTO> Historique { get; set; }
+
+        public CompteDTO(Compte compte)
+        {
+            Id = compte.Id;
+            Nom = compte.Nom;
+            Solde = compte.Solde;
+            Historique = compte.Historique.Select(o => new OperationDTO(o)).ToList();
+        }
     }
 
     [DataContract]
@@ -134,6 +153,16 @@ namespace eBanque
 
         [DataMember]
         public CompteLieDTO CompteLie { get; set; }
+
+        public OperationDTO(Operation operation)
+        {
+            Id = operation.Id;
+            Date = operation.Date;
+            Label = operation.Label;
+            Montant = operation.Montant;
+            Type = operation.Type;
+            CompteLie = new CompteLieDTO(operation.CompteLie);
+        }
     }
 
     [DataContract]
@@ -147,5 +176,12 @@ namespace eBanque
 
         [DataMember]
         public string NomCompte { get; set; }
+
+        public CompteLieDTO(Compte compte)
+        {
+            NomCompte = compte.Nom;
+            NomProprietaire = compte.Proprietaire.Nom;
+            PrenomProprietaire = compte.Proprietaire.Prenom;
+        }
     }
 }
